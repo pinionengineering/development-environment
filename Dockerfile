@@ -11,6 +11,10 @@ RUN apt-get install -y curl
 RUN curl -L https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz | tar -C / -xzvf -
 RUN chown -R ubuntu: /google-cloud-sdk
 
+# install docker
+RUN curl -L get.docker.com | sh
+RUN chmod a+s /usr/bin/docker
+
 # install kubeseal
 RUN curl -L "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz" | tar -C /usr/local/bin -xzvf - kubeseal
 

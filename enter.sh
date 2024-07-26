@@ -17,4 +17,7 @@ fi
 
 # # run the container with the home directory mounted to the container.
 #
- docker run -it --rm --network host -v ./user-homedir/ubuntu:/home/ubuntu:rw $IMAGE
+ docker run -it --rm --network host \
+     -v ./user-homedir/ubuntu:/home/ubuntu:rw \
+     -v /var/run/docker.sock:/var/run/docker.sock:rw \
+     $IMAGE
