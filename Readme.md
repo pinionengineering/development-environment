@@ -105,6 +105,46 @@ sealed-secrets             Active   36d
 ```
 
 
+# Docker registry access.
+The google project you were granted access to also has a docker registry. This is a good place to push images so they can
+be accessed by the kubernetes cluster.
+
+This development environment has [podman](https://podman.io/) installed. This is a drop-in replacement for docker.
+In order to push images to the gcloud registry, you need to authenticate first.
+
+```
+gcloud auth print-access-token | podman login -u oauth2accesstoken --password-stdin us-central1-docker.pkg.dev
+```
+
+Once you've done this, you can push images into the registry like so
+
+```
+# Pull an image (or build one)
+$ docker pull alpine
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Resolved "alpine" as an alias (/etc/containers/registries.conf.d/shortnames.conf)
+Trying to pull docker.io/library/alpine:latest...
+Getting image source signatures
+Copying blob c6a83fedfae6 done   | 
+Copying config 324bc02ae1 done   | 
+Writing manifest to image destination
+324bc02ae1231fd9255658c128086395d3fa0aedd5a41ab6b034fd649d1a9260
+
+# Tag the image with the registry name.
+# the registries follow a similar naming scheme to the one shown.
+ubuntu@nemesis:~$ docker tag alpine us-central1-docker.pkg.dev/newproject-bf60/newproject/myalpine
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+
+
+ubuntu@nemesis:~$ docker push us-central1-docker.pkg.dev/newproject-bf60/newproject/myalpine
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Getting image source signatures
+Copying blob c6a83fedfae6 skipped: already exists  
+Copying config 324bc02ae1 done   | 
+Writing manifest to image destination
+
+```
+
 ## What's next?
 
 You're now ready to start developing and deploying!
