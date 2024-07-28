@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
-
 # Stand up a development environment that has everything you need.
 
-IMAGE=devenv
+set -e
 
 # The first arg is the name of the user that will be created in the container.
 # All the other args will be used arguments to docker build.
@@ -15,6 +13,7 @@ if [[ $# -gt 0 ]]; then
     shift
 fi
 
+IMAGE=devenv-$USER
 
 if [[ ! -f packages.txt ]]; then
     touch packages.txt
