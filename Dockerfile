@@ -6,7 +6,9 @@ ARG USERNAME=coder
 
 # the container has an 'ubuntu' user.
 # Change the username to something else.
-RUN usermod -l $USERNAME -d /home/$USERNAME -m ubuntu
+RUN userdel -r ubuntu
+RUN useradd -m $USERNAME
+RUN usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USERNAME
 
 
 RUN apt-get update
