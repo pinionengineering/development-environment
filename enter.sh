@@ -24,7 +24,7 @@ docker build -t $IMAGE --network host . --build-arg USERNAME=$USER $@
 
 # The build process produces some files in the home directory.
 # Copy them to the host, but only do this once.
-if [ ! -f ./user-homedir/copied ]; then
+if [ ! -f ./user-homedir/copied_$USER ]; then
     docker run --rm -v ./user-homedir:/data:rw $IMAGE cp -arv /home/$USER/ /data/
     touch ./user-homedir/copied_$USER
 fi
