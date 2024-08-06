@@ -145,6 +145,10 @@ Writing manifest to image destination
 
 ```
 
+# Add your own packages (optional)
+The default image is pretty basic. If you want to bring editors or additional packages into the environment,
+you can add them to `packages.txt` one line at a time. The provided `packages.txt.example` is a good starting point.
+
 ## What's next?
 
 You're now ready to start developing and deploying!
