@@ -7,7 +7,7 @@ ARG USERNAME=coder
 # the container has an 'ubuntu' user.
 # Change the username to something else.
 RUN userdel -r ubuntu
-RUN useradd -m $USERNAME
+RUN useradd -m $USERNAME -s /usr/bin/bash
 RUN usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USERNAME
 
 
