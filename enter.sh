@@ -29,7 +29,7 @@ if [ ! -f ./user-homedir/copied_$USER ]; then
     touch ./user-homedir/copied_$USER
 fi
 
- docker run -it --rm --network host \
-     --privileged \
-     -v ./user-homedir/$USER:/home/$USER:rw \
-     $IMAGE
+docker run -it --rm --network host \
+    --privileged \
+    -v ./user-homedir/$USER:/home/$USER:rw \
+    $IMAGE
