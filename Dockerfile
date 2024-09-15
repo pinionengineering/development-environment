@@ -3,11 +3,14 @@ FROM ubuntu:latest
 ARG KUBECTL_VERSION=1.30.3
 ARG KUBESEAL_VERSION=0.27.1
 ARG USERNAME=coder
+ARG USER_UID=5000
+ARG USER_GID=5000
 
 # the container has an 'ubuntu' user.
 # Change the username to something else.
 RUN userdel -r ubuntu
-RUN useradd -m $USERNAME -s /usr/bin/bash
+RUN groupadd -g $USER_GID $USERNAME || echo reusing existing group
+RUN useradd -m $USERNAME -s /usr/bin/bash -u $USER_UID -g $USER_GID
 RUN usermod --add-subuids 100000-165535 --add-subgids 100000-165535 $USERNAME
 
 

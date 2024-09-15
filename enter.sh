@@ -13,6 +13,10 @@ if [[ $# -gt 0 ]]; then
     shift
 fi
 
+# Create a user in the container with the same UID/GID as the user running the script
+USER_UID=$(id -u)
+USER_GID=$(id -g)
+
 IMAGE=devenv-$USER
 
 if [[ ! -f packages.txt ]]; then
@@ -20,7 +24,13 @@ if [[ ! -f packages.txt ]]; then
 fi
 
 
-docker build -t $IMAGE --network host . --build-arg USERNAME=$USER $@
+docker build -t $IMAGE \
+    --network host \
+    --build-arg USERNAME=$USER \
+    --build-arg USER_UID=$USER_UID \
+    --build-arg USER_GID=$USER_GID \
+    $@ \
+    .
 
 # The build process produces some files in the home directory.
 # Copy them to the host, but only do this once.
