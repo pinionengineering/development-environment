@@ -1,0 +1,6 @@
+# Need to add any software with an unusual installation procedure?
+# Add it here.
+
+git clone https://github.com/cli/cli.git /tmp/gh-cli
+cd /tmp/gh-cli
+make install
