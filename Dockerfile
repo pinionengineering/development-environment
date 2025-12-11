@@ -32,6 +32,9 @@ RUN apt-get install -y podman podman-docker git make
 COPY packages.txt /tmp/packages.txt
 RUN apt-get install -y $(cat /tmp/packages.txt)
 
+# Make /usr/local owned by the non-root user (so you can install software if you want to)
+RUN chown -R $USERNAME: /usr/local
+
 USER $USERNAME
 WORKDIR /home/$USERNAME
 RUN /google-cloud-sdk/install.sh -q --rc-path=/home/$USERNAME/.bashrc  --path-update=true
